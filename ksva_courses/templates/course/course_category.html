@@ -1,0 +1,36 @@
+{% load static %}
+<div class="container-xxl py-5 category">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
+            <h1 class="mb-5">Courses Categories</h1>
+        </div>
+        <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for category in categories %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-6">
+                            <div class="position-relative d-block overflow-hidden">
+                                <img class="img-fluid" src="{{ category.image.url }}" alt="{{ category.name }}">
+                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
+                                    <h5 class="m-0">{{ category.name }}</h5>
+                                    <small class="text-primary">{{ category.courses.count }} Courses</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>

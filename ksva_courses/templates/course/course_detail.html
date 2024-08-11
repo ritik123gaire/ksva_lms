@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">{{ course.category.name }}</h6>
+                <h1 class="mb-5">{{ course.title }}</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <img class="img-fluid mb-4" src="{{ course.image.url }}" alt="{{ course.title }}">
+                    <h2>Course Overview</h2>
+                    <p>{{ course.description }}</p>
+                    
+                    <h2>Week-wise Information</h2>
+                    {% for week, details in course.weeks.items %}
+                    <div class="week-info">
+                        <h3>Week {{ week }}</h3>
+                        <p>{{ details }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-4">
+                    <div class="course-meta bg-light p-4">
+                        <h3>Course Details</h3>
+                        <p><strong>Instructor:</strong> {{ course.instructor.name }}</p>
+                        <p><strong>Duration:</strong> {{ course.duration }}</p>
+                        <p><strong>Students Enrolled:</strong> {{ course.students_enrolled }}</p>
+                        
+                        <h3>Enroll Now</h3>
+                        <a href="#" class="btn btn-primary">Join Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+
+{% endblock %}
