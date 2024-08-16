@@ -42,22 +42,23 @@ class StudentInfo(models.Model):
         ('F', 'Female'),
         ('O', 'Other'),
     ]
+    
 
     EDUCATION_LEVEL_CHOICES = [
         ('HS', 'High School'),
         ('UG', 'Undergraduate'),
         ('PG', 'Postgraduate'),
     ]
+   
 
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)  # Ensuring the email is unique
+    email = models.EmailField(unique=True)  
     phone_number = models.CharField(max_length=15)
     address = models.TextField()
     date_of_birth = models.DateField()
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,blank=False, null=False)
     education_level = models.CharField(max_length=2, choices=EDUCATION_LEVEL_CHOICES)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     additional_info = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -72,9 +73,4 @@ class StudentInfo(models.Model):
         if not self.phone_number.isdigit() or not (10 <= len(self.phone_number) <= 15):
             raise ValidationError('Phone number must be between 10 to 15 digits.')
 
-        # Example: Validate profile picture size and type if needed
-        if self.profile_picture:
-            if self.profile_picture.size > 5 * 1024 * 1024:  # 5 MB limit
-                raise ValidationError('Profile picture size should not exceed 5 MB.')
-            if not self.profile_picture.content_type.startswith('image/'):
-                raise ValidationError('Only image files are allowed for profile picture.')
+    

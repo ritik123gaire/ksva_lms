@@ -35,3 +35,16 @@ def contact(request):
 def course_detail(request, pk):
     course = get_object_or_404(Course, pk=pk)
     return render(request, 'course/course_detail.html', {'course': course})
+
+def enroll(request):
+    if request.method == 'POST':
+        form = StudentInfoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('enroll_success')
+    else:
+        form = StudentInfoForm()
+    return render(request, 'pages/enroll.html', {'form': form})
+
+def enroll_success(request):
+    return render(request, 'pages/enroll_success.html')
